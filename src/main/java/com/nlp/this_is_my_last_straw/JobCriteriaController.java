@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 public class JobCriteriaController {
@@ -17,6 +20,12 @@ public class JobCriteriaController {
     @PostMapping("/addJob")
     public ResponseEntity<JobCriteria> addJob(@RequestBody JobCriteria jobCriteria) {
         JobCriteria savedCriteria = jobCriteriaRepository.save(jobCriteria);
-        return ResponseEntity.ok(savedCriteria); // Return the saved JobCriteria object in the response
+        return ResponseEntity.ok(savedCriteria);
+    }
+
+    @GetMapping("/jobs")
+    public ResponseEntity<List<JobCriteria>> getAllJobs() {
+        List<JobCriteria> jobs = jobCriteriaRepository.findAll();
+        return ResponseEntity.ok(jobs);
     }
 }
